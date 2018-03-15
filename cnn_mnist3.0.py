@@ -1,4 +1,3 @@
-
 """ import libraries """
 from __future__ import absolute_import
 from __future__ import division
@@ -6,27 +5,18 @@ from __future__ import print_function
 
 import argparse
 import sys
+import tempfile
 import os
+
+from tensorflow.examples.tutorials.mnist import input_data
 
 import numpy as np
 import tensorflow as tf
 from matplotlib import pyplot
 import matplotlib as mpl
 
-from TensorDataset import *
-
-
 FLAGS = None
-LOGDIR = 'C:/Users/lalo/Desktop/CCTVal/MINERvA/checkpoints/'
-PATH_DATA = 'C:/Users/lalo/Google Drive/CCTVal/MINERvA/VortexDetection/Data/dataset_minerva.hdf5'
-
-TRAIN_SIZE = 49000
-EVAL_SIZE = 1000
-
-HX_SIZE_VECTOR = 127*50
-HUV_SIZE_VECTOR = 127*25
-CATEGORIES = 67
-
+LOGDIR = 'C:/Users/lalo/Desktop/CCTVal/MINERvA/checkpoints3/'
 
 def show_image(image):
     """
@@ -69,9 +59,9 @@ def conv_layer(input, cr_h, cr_v, depth_in, depth_out, name="conv"):
         b = bias_variable([depth_out])
         act = tf.nn.relu(conv2d(input, w) + b)
         '''Logging Histograms of Conv Layer'''
-        # tf.summary.histogram("weights", w)
-        # tf.summary.histogram("biases", b)
-        # tf.summary.histogram("activations", act)
+        tf.summary.histogram("weights", w)
+        tf.summary.histogram("biases", b)
+        tf.summary.histogram("activations", act)
         return act
 
 def pool_layer(input, ds_h, ds_v, name="pool"):
@@ -102,9 +92,9 @@ def fc_layer(input, flat_size, dense_neurons, flag, name="fc"):
         else:
             input_flat = input
         act = tf.nn.relu(tf.matmul(input_flat, w) + b)
-        # tf.summary.histogram("weights", w)
-        # tf.summary.histogram("biases", b)
-        # tf.summary.histogram("activations", act)
+        tf.summary.histogram("weights", w)
+        tf.summary.histogram("biases", b)
+        tf.summary.histogram("activations", act)
         return act
 
 def dropout(input, name="dropout"):
@@ -118,9 +108,9 @@ def dropout(input, name="dropout"):
         drop = tf.nn.dropout(input, keep_prob)
         return drop, keep_prob
 
-def deepnn_hitsX(x):
+def deepnn(x):
     """
-    deepnn builds the graph for a deep neural network for classifying MINERvA data.
+    deepnn builds the graph for a deep net for classifying digits.
     :param x: an input tensor with the dimensions (N_examples, 784), where 784 is the
     number of pixels in a standard MNIST image.
     :return: A tuple (y, keep_prob). y is a tensor of shape (N_examples, 10), with values
@@ -132,7 +122,7 @@ def deepnn_hitsX(x):
     # Last dimension is for "features" - there is only one here, since images are
     # grayscale -- it would be 3 for an RGB image, 4 for RGBA, etc.
     with tf.name_scope('reshape'):
-        x_image = tf.reshape(x, [-1, 127, 50, 1])
+        x_image = tf.reshape(x, [-1, 28, 28, 1])
 
     # First convolutional layer - maps one grayscale image to 32 feature maps.
     conv_1 = conv_layer(x_image, 5, 5, 1, 32, "conv_1")
@@ -143,50 +133,13 @@ def deepnn_hitsX(x):
 
     pool_2 = pool_layer(conv_2, 2, 2, "pool_2")
 
-    full_1 = fc_layer(pool_2, 32*13*64, 1024, True, "full_1")
+    full_1 = fc_layer(pool_2, 7*7*64, 1024, True, "full_1")
 
     drop_1, keep_prob = dropout(full_1)
-    #
-    full_2 = fc_layer(drop_1, 1024, CATEGORIES, False, "full_2")
+
+    full_2 = fc_layer(drop_1, 1024, 10, False, "full_2")
 
     return full_2, keep_prob
-
-def deepnn_hitsUV(u, v):
-    """
-    deepnn builds the graph for a deep neural network for classifying MINERvA data.
-    :param x: an input tensor with the dimensions (N_examples, 784), where 784 is the
-    number of pixels in a standard MNIST image.
-    :return: A tuple (y, keep_prob). y is a tensor of shape (N_examples, 10), with values
-    equal to the logits of classifying the digit into one of 10 classes (the
-    digits 0-9). keep_prob is a scalar placeholder for the probability of
-    dropout.
-    """
-    # Reshape to use within a convolutional neural net.
-    # Last dimension is for "features" - there is only one here, since images are
-    # grayscale -- it would be 3 for an RGB image, 4 for RGBA, etc.
-    with tf.name_scope('reshape'):
-        u_image = tf.reshape(u, [-1, 127, 25, 1])
-        v_image = tf.reshape(v, [-1, 127, 25, 1])
-
-    # Convolutional layer for U plane
-    conv_1u = conv_layer(u_image, 8, 3, 1, 32, "conv_1")
-    pool_1u = pool_layer(conv_1u, 2, 2, "pool_1")
-    conv_2u = conv_layer(pool_1u, 8, 3, 32, 64, "conv_2")
-    pool_2u = pool_layer(conv_2u, 2, 2, "pool_2")
-    full_1u = fc_layer(pool_2u, 32*7*64, 1024, True, "full_1")
-    drop_1u, keep_prob = dropout(full_1u)
-    full_2u = fc_layer(drop_1u, 1024, CATEGORIES, False, "full_2")
-
-    # Convolutional layer for V plane
-    conv_1v = conv_layer(v_image, 8, 3, 1, 32, "conv_1")
-    pool_1v = pool_layer(conv_1v, 2, 2, "pool_1")
-    conv_2v = conv_layer(pool_1v, 8, 3, 32, 64, "conv_2")
-    pool_2v = pool_layer(conv_2v, 2, 2, "pool_2")
-    full_1v = fc_layer(pool_2v, 32*7*64, 1024, True, "full_1")
-    drop_1v, keep_prob = dropout(full_1v)
-    full_2v = fc_layer(drop_1v, 1024, CATEGORIES, False, "full_2")
-
-    return full_2u, full_2v, keep_prob
 
 def cross_entropy(y_, y_conv, name="xent"):
     """
@@ -198,7 +151,7 @@ def cross_entropy(y_, y_conv, name="xent"):
     with tf.name_scope(name):
         xent = tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y_conv)
         xent = tf.reduce_mean(xent)
-        # tf.summary.scalar("xent", xent)
+        tf.summary.scalar("xent", xent)
         return xent
 
 def training(xent, name="adam_optimizer"):
@@ -219,31 +172,28 @@ def accuracy_measure(y_, y_conv, name="accuracy"):
     :return: accuracy object
     """
     with tf.name_scope(name):
-        prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
-        correct_prediction = tf.cast(prediction, tf.float32)
+        correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
+        correct_prediction = tf.cast(correct_prediction, tf.float32)
         accuracy = tf.reduce_mean(correct_prediction)
-        # tf.summary.scalar("accuracy", accuracy)
-        return accuracy, prediction, correct_prediction
+        tf.summary.scalar("accuracy", accuracy)
+        return accuracy, correct_prediction
 
 def main(_):
 
     tf.reset_default_graph()
     sess = tf.Session()
 
-    # Import MINERvA data
-    minerva_train, minerva_test = read_data(PATH_DATA, TRAIN_SIZE, EVAL_SIZE)
-    print('\n type mnist datasets: ', type(minerva_train))
+    # Import data
+    mnist = input_data.read_data_sets(FLAGS.data_dir, one_hot=True)
 
     # Create the model
-    x = tf.placeholder(tf.float32, [None, HX_SIZE_VECTOR])
-    u = tf.placeholder(tf.float32, [None, HUV_SIZE_VECTOR])
-    v = tf.placeholder(tf.float32, [None, HUV_SIZE_VECTOR])
+    x = tf.placeholder(tf.float32, [None, 784])
 
     # Define loss and optimizer
-    y_ = tf.placeholder(tf.float32, [None, CATEGORIES])
+    y_ = tf.placeholder(tf.float32, [None, 10])
 
     # Build the graph for the deep net
-    y_conv, keep_prob = deepnn_hitsX(x)
+    y_conv, keep_prob = deepnn(x)
 
     xent = cross_entropy(y_, y_conv, "xent")
 
@@ -252,8 +202,9 @@ def main(_):
     accuracy, correct_prediction = accuracy_measure(y_, y_conv, "accuracy")
 
     """ Logging configuration """
-    # summ = tf.summary.merge_all()
+    summ = tf.summary.merge_all()
     saver = tf.train.Saver()
+    sess.run(tf.global_variables_initializer())
     # filewriter is how we write the summary protocol buffers to disk
     train_writer = tf.summary.FileWriter(LOGDIR)
     train_writer.add_graph(sess.graph)
@@ -262,20 +213,30 @@ def main(_):
     tf.contrib.tensorboard.plugins.projector.visualize_embeddings(train_writer, config)
 
 
+    '''para volver atrás descomentar'''
+    # print('Saving graph to: %s' % LOGDIR)
+    # train_writer = tf.summary.FileWriter(LOGDIR)
+    # train_writer.add_graph(tf.get_default_graph())
+    '''para volver atras identar y descomentar with'''
+    # with tf.Session() as sess:
+    #     sess.run(tf.global_variables_initializer())
+
     """ Training Neural Network """
-    sess.run(tf.global_variables_initializer())
-    for i in range(100):
-        batch = minerva_train.next_batch(10)
-        if i % 10 == 0:
+    for i in range(2000):
+        batch = mnist.train.next_batch(100)
+        if i % 100 == 0:
             print('iteración %g: ' % i)
             """Evaluando accuracy y xent"""
             train_accuracy = accuracy.eval(session=sess, feed_dict={
                 x: batch[0], y_: batch[1], keep_prob: 0.8})
-
             train_loss = xent.eval(session=sess, feed_dict={
                 x: batch[0], y_: batch[1], keep_prob: 0.8})
             print('step %d, training accuracy %g' % (i, train_accuracy))
             print('step %d, training loss %g' % (i, train_loss))
+
+            test_accuracy = accuracy.eval(session=sess, feed_dict={
+                            x: mnist.test.images, y_: mnist.test.labels, keep_prob: 0.8})
+            print('\ntest accuracy: %g' % test_accuracy)
 
             with sess.as_default():
                 acc = tf.Summary(value=[tf.Summary.Value(tag='train_accuracy', simple_value=train_accuracy)])
@@ -283,30 +244,22 @@ def main(_):
                 train_writer.add_summary(acc, i)
                 train_writer.add_summary(loss, i)
 
-        # if i % 100 == 0:
-        #     test_accuracy = accuracy.eval(session=sess, feed_dict={
-        #                     x: minerva_test.images, y_: minerva_test.labels, keep_prob: 0.8})
-        #     print('\ntest accuracy: %g' % test_accuracy)
-        #
-        #     # [train_accuracy, s] = sess.run([accuracy, summ], feed_dict={
-        #     #     x: batch[0], y_: batch[1], keep_prob: 1.0})
-        #     # train_writer.add_summary(s, i)
-        #     print("train accuracy: ", train_accuracy)
-        #     saver.save(sess, os.path.join(LOGDIR, "model.ckpt"), i)
+        if i % 1000 == 0:
+            [train_accuracy, s] = sess.run([accuracy, summ], feed_dict={
+                x: batch[0], y_: batch[1], keep_prob: 1.0})
+            train_writer.add_summary(s, i)
+            print("train accuracy: ", train_accuracy)
+            saver.save(sess, os.path.join(LOGDIR, "model.ckpt"), i)
 
         train_step.run(session=sess, feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.8})
 
-    pred_labels = accuracy.run(session=sess, feed_dict={
-                 x: minerva_test.images, y_: minerva_test.labels, keep_prob: 0.8})
-
-
-    # test_accuracy = accuracy.eval(session=sess, feed_dict={
-    #                 x: minerva_test.images, y_: minerva_test.labels, keep_prob: 0.8})
-    # print('\ntest accuracy: %g' % test_accuracy)
-    # test_cross = correct_prediction.eval(session=sess, feed_dict={
-    #              x: minerva_test.images, y_: minerva_test.labels, keep_prob: 0.8})
-    # print('\nshape of cross entropy vector: %g' % np.shape(test_cross))
-    # print('accuracy form cross_entropy: %g' % (np.sum(test_cross) / np.shape(test_cross)))
+    test_accuracy = accuracy.eval(session=sess, feed_dict={
+                    x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})
+    print('\ntest accuracy: %g' % test_accuracy)
+    test_cross = correct_prediction.eval(session=sess, feed_dict={
+                 x: mnist.test.images, y_: mnist.test.labels, keep_prob: 0.8})
+    print('\nshape of cross entropy vector: %g' % np.shape(test_cross))
+    print('accuracy form cross_entropy: %g' % (np.sum(test_cross) / np.shape(test_cross)))
 
 
 if __name__ == '__main__':

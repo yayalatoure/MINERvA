@@ -47,6 +47,8 @@ def formating(file, Tsize, Esize):
 
     # Delete extra component
     hits_x = np.squeeze(hits_x, axis=1)
+    hits_u = np.squeeze(hits_u, axis=1)
+    hits_v = np.squeeze(hits_v, axis=1)
 
     # Reshape images to vectors
     shape_x = np.shape(hits_x)
