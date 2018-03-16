@@ -59,9 +59,9 @@ def conv_layer(input, cr_h, cr_v, depth_in, depth_out, name="conv"):
         b = bias_variable([depth_out])
         act = tf.nn.relu(conv2d(input, w) + b)
         '''Logging Histograms of Conv Layer'''
-        tf.summary.histogram("weights", w)
-        tf.summary.histogram("biases", b)
-        tf.summary.histogram("activations", act)
+        # tf.summary.histogram("weights", w)
+        # tf.summary.histogram("biases", b)
+        # tf.summary.histogram("activations", act)
         return act
 
 def pool_layer(input, ds_h, ds_v, name="pool"):
@@ -92,9 +92,9 @@ def fc_layer(input, flat_size, dense_neurons, flag, name="fc"):
         else:
             input_flat = input
         act = tf.nn.relu(tf.matmul(input_flat, w) + b)
-        tf.summary.histogram("weights", w)
-        tf.summary.histogram("biases", b)
-        tf.summary.histogram("activations", act)
+        # tf.summary.histogram("weights", w)
+        # tf.summary.histogram("biases", b)
+        # tf.summary.histogram("activations", act)
         return act
 
 def dropout(input, name="dropout"):
@@ -151,7 +151,7 @@ def cross_entropy(y_, y_conv, name="xent"):
     with tf.name_scope(name):
         xent = tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y_conv)
         xent = tf.reduce_mean(xent)
-        tf.summary.scalar("xent", xent)
+        # tf.summary.scalar("xent", xent)
         return xent
 
 def training(xent, name="adam_optimizer"):
@@ -172,11 +172,12 @@ def accuracy_measure(y_, y_conv, name="accuracy"):
     :return: accuracy object
     """
     with tf.name_scope(name):
-        correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
-        correct_prediction = tf.cast(correct_prediction, tf.float32)
-        accuracy = tf.reduce_mean(correct_prediction)
-        tf.summary.scalar("accuracy", accuracy)
-        return accuracy, correct_prediction
+        actual_pred = tf.argmax(y_conv, 1)
+        correct_pred = tf.equal(actual_pred, tf.argmax(y_, 1))
+        correct_pred = tf.cast(correct_pred, tf.float32)
+        accuracy = tf.reduce_mean(correct_pred)
+        # tf.summary.scalar("accuracy", accuracy)
+        return accuracy, correct_pred, actual_pred
 
 def main(_):
 
@@ -199,18 +200,18 @@ def main(_):
 
     train_step = training(xent, "adam_optimizer")
 
-    accuracy, correct_prediction = accuracy_measure(y_, y_conv, "accuracy")
+    accuracy, correct_pred, actual_pred = accuracy_measure(y_, y_conv, "accuracy")
 
-    """ Logging configuration """
-    summ = tf.summary.merge_all()
-    saver = tf.train.Saver()
-    sess.run(tf.global_variables_initializer())
-    # filewriter is how we write the summary protocol buffers to disk
-    train_writer = tf.summary.FileWriter(LOGDIR)
-    train_writer.add_graph(sess.graph)
-    ## Format: tensorflow/contrib/tensorboard/plugins/projector/projector_config.proto
-    config = tf.contrib.tensorboard.plugins.projector.ProjectorConfig()
-    tf.contrib.tensorboard.plugins.projector.visualize_embeddings(train_writer, config)
+    # """ Logging configuration """
+    # summ = tf.summary.merge_all()
+    # saver = tf.train.Saver()
+    # sess.run(tf.global_variables_initializer())
+    # # filewriter is how we write the summary protocol buffers to disk
+    # train_writer = tf.summary.FileWriter(LOGDIR)
+    # train_writer.add_graph(sess.graph)
+    # ## Format: tensorflow/contrib/tensorboard/plugins/projector/projector_config.proto
+    # config = tf.contrib.tensorboard.plugins.projector.ProjectorConfig()
+    # tf.contrib.tensorboard.plugins.projector.visualize_embeddings(train_writer, config)
 
 
     '''para volver atrás descomentar'''
@@ -222,6 +223,7 @@ def main(_):
     #     sess.run(tf.global_variables_initializer())
 
     """ Training Neural Network """
+
     for i in range(2000):
         batch = mnist.train.next_batch(100)
         if i % 100 == 0:
@@ -238,25 +240,25 @@ def main(_):
                             x: mnist.test.images, y_: mnist.test.labels, keep_prob: 0.8})
             print('\ntest accuracy: %g' % test_accuracy)
 
-            with sess.as_default():
-                acc = tf.Summary(value=[tf.Summary.Value(tag='train_accuracy', simple_value=train_accuracy)])
-                loss = tf.Summary(value=[tf.Summary.Value(tag='train_loss', simple_value=train_loss)])
-                train_writer.add_summary(acc, i)
-                train_writer.add_summary(loss, i)
+            # with sess.as_default():
+            #     acc = tf.Summary(value=[tf.Summary.Value(tag='train_accuracy', simple_value=train_accuracy)])
+            #     loss = tf.Summary(value=[tf.Summary.Value(tag='train_loss', simple_value=train_loss)])
+            #     train_writer.add_summary(acc, i)
+            #     train_writer.add_summary(loss, i)
 
-        if i % 1000 == 0:
-            [train_accuracy, s] = sess.run([accuracy, summ], feed_dict={
-                x: batch[0], y_: batch[1], keep_prob: 1.0})
-            train_writer.add_summary(s, i)
-            print("train accuracy: ", train_accuracy)
-            saver.save(sess, os.path.join(LOGDIR, "model.ckpt"), i)
+        # if i % 1000 == 0:
+        #     [train_accuracy, s] = sess.run([accuracy, summ], feed_dict={
+        #         x: batch[0], y_: batch[1], keep_prob: 1.0})
+        #     train_writer.add_summary(s, i)
+        #     print("train accuracy: ", train_accuracy)
+        #     saver.save(sess, os.path.join(LOGDIR, "model.ckpt"), i)
 
         train_step.run(session=sess, feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.8})
 
     test_accuracy = accuracy.eval(session=sess, feed_dict={
                     x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})
     print('\ntest accuracy: %g' % test_accuracy)
-    test_cross = correct_prediction.eval(session=sess, feed_dict={
+    test_cross = correct_pred.eval(session=sess, feed_dict={
                  x: mnist.test.images, y_: mnist.test.labels, keep_prob: 0.8})
     print('\nshape of cross entropy vector: %g' % np.shape(test_cross))
     print('accuracy form cross_entropy: %g' % (np.sum(test_cross) / np.shape(test_cross)))
