@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51e3ff83-837c-4e32-9139-c9c8a27e6567" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/other.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" afterPath="$PROJECT_DIR$/.idea/Project.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/cnn_mnist_deep_3.0.py" afterPath="$PROJECT_DIR$/cnn_mnist_deep_3.0.py" />
     </list>
@@ -19,31 +17,53 @@
     <SUITE FILE_PATH="coverage/Project$CNN_MNIST.coverage" NAME="CNN_MNIST Coverage Results" MODIFIED="1521147302393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Project$cnn_mnist_deep_2_0.coverage" NAME="cnn_mnist_deep_2.0 Coverage Results" MODIFIED="1521254241051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Project$cnn_model.coverage" NAME="cnn_model Coverage Results" MODIFIED="1520003362469" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Project$cnn_mnist_deep_3_0.coverage" NAME="cnn_mnist_deep_3.0 Coverage Results" MODIFIED="1521255355676" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project$cnn_mnist_deep_3_0.coverage" NAME="cnn_mnist_deep_3.0 Coverage Results" MODIFIED="1521319439738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file leaf-file-name="cnn_mnist_deep_3.0.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cnn_mnist_deep_3.0.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+            <state relative-caret-position="589">
+              <caret line="344" column="56" lean-forward="true" selection-start-line="344" selection-start-column="56" selection-end-line="344" selection-end-column="56" />
               <folding>
                 <element signature="e#25#63#0" expanded="true" />
-                <element signature="e#1954#2120#0" expanded="false" />
-                <element signature="e#2149#2333#0" expanded="false" />
-                <element signature="e#2394#2764#0" expanded="false" />
-                <element signature="e#2788#2917#0" expanded="false" />
-                <element signature="e#2951#3103#0" expanded="false" />
-                <element signature="e#3135#3274#0" expanded="false" />
-                <element signature="e#3349#4090#0" expanded="false" />
-                <element signature="e#4144#4530#0" expanded="false" />
-                <element signature="e#4600#5257#0" expanded="false" />
-                <element signature="e#5299#5569#0" expanded="false" />
-                <element signature="e#5590#6827#0" expanded="false" />
-                <element signature="e#6877#7248#0" expanded="false" />
-                <element signature="e#7297#7537#0" expanded="false" />
-                <element signature="e#7594#8055#0" expanded="false" />
+                <element signature="e#962#1934#0" expanded="false" />
+                <element signature="e#1960#2126#0" expanded="false" />
+                <element signature="e#2155#2339#0" expanded="false" />
+                <element signature="e#2400#2770#0" expanded="false" />
+                <element signature="e#2794#2923#0" expanded="false" />
+                <element signature="e#2957#3109#0" expanded="false" />
+                <element signature="e#3141#3280#0" expanded="false" />
+                <element signature="e#3355#4096#0" expanded="false" />
+                <element signature="e#4150#4536#0" expanded="false" />
+                <element signature="e#4606#5263#0" expanded="false" />
+                <element signature="e#5305#5575#0" expanded="false" />
+                <element signature="e#5596#6833#0" expanded="false" />
+                <element signature="e#6883#7252#0" expanded="false" />
+                <element signature="e#7301#7541#0" expanded="false" />
+                <element signature="e#7598#8057#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cnn_mnist_deep_2.0.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cnn_mnist_deep_2.0.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="504">
+              <caret line="242" column="0" lean-forward="false" selection-start-line="242" selection-start-column="0" selection-end-line="246" selection-end-column="51" />
+              <folding>
+                <element signature="e#787#916#0" expanded="false" />
+                <element signature="e#950#1102#0" expanded="false" />
+                <element signature="e#1134#1273#0" expanded="false" />
+                <element signature="e#1348#2089#0" expanded="false" />
+                <element signature="e#2143#2529#0" expanded="false" />
+                <element signature="e#2599#3256#0" expanded="false" />
+                <element signature="e#3298#3568#0" expanded="false" />
+                <element signature="e#3589#4826#0" expanded="false" />
+                <element signature="e#4876#5247#0" expanded="false" />
+                <element signature="e#5296#5536#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -94,7 +114,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="1294" />
+    <option name="width" value="1185" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -113,8 +133,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -126,6 +144,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -293,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1521231614812</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Prueba tutorial intel.&#10;&#10;- mnist funcionando&#10;- testeo con batches hecho&#10;- matriz de confusión hecha">
+      <created>1521255511980</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1521255511980</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -306,22 +333,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1294" height="1047" extended-state="0" />
+    <frame x="-7" y="0" width="1185" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995495" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14050494" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995495" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19538969" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995495" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15721232" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14666666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06413043" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06413043" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -363,7 +390,8 @@
     <MESSAGE value="prueba repositorio" />
     <MESSAGE value="Prueba tutorial intel.&#10;&#10;- con mnist funciona y el adamoptimizer.&#10;- falta aprender como programarlo con el data set que se tiene" />
     <MESSAGE value="Prueba tutorial intel.&#10;&#10;- Actualizar el mnist probando con test set y batches" />
-    <option name="LAST_COMMIT_MESSAGE" value="Prueba tutorial intel.&#10;&#10;- Actualizar el mnist probando con test set y batches" />
+    <MESSAGE value="Prueba tutorial intel.&#10;&#10;- mnist funcionando&#10;- testeo con batches hecho&#10;- matriz de confusión hecha" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prueba tutorial intel.&#10;&#10;- mnist funcionando&#10;- testeo con batches hecho&#10;- matriz de confusión hecha" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -374,7 +402,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="65" />
+      <option name="time" value="66" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -389,20 +417,21 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#25#63#0" expanded="true" />
-            <element signature="e#1954#2120#0" expanded="false" />
-            <element signature="e#2149#2333#0" expanded="false" />
-            <element signature="e#2394#2764#0" expanded="false" />
-            <element signature="e#2788#2917#0" expanded="false" />
-            <element signature="e#2951#3103#0" expanded="false" />
-            <element signature="e#3135#3274#0" expanded="false" />
-            <element signature="e#3349#4090#0" expanded="false" />
-            <element signature="e#4144#4530#0" expanded="false" />
-            <element signature="e#4600#5257#0" expanded="false" />
-            <element signature="e#5299#5569#0" expanded="false" />
-            <element signature="e#5590#6827#0" expanded="false" />
-            <element signature="e#6877#7248#0" expanded="false" />
-            <element signature="e#7297#7537#0" expanded="false" />
-            <element signature="e#7594#8055#0" expanded="false" />
+            <element signature="e#962#1934#0" expanded="false" />
+            <element signature="e#1960#2126#0" expanded="false" />
+            <element signature="e#2155#2339#0" expanded="false" />
+            <element signature="e#2400#2770#0" expanded="false" />
+            <element signature="e#2794#2923#0" expanded="false" />
+            <element signature="e#2957#3109#0" expanded="false" />
+            <element signature="e#3141#3280#0" expanded="false" />
+            <element signature="e#3355#4096#0" expanded="false" />
+            <element signature="e#4150#4536#0" expanded="false" />
+            <element signature="e#4606#5263#0" expanded="false" />
+            <element signature="e#5305#5575#0" expanded="false" />
+            <element signature="e#5596#6833#0" expanded="false" />
+            <element signature="e#6883#7252#0" expanded="false" />
+            <element signature="e#7301#7541#0" expanded="false" />
+            <element signature="e#7598#8057#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -596,7 +625,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -604,16 +632,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-945">
           <caret line="202" column="0" lean-forward="true" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cnn_mnist_deep_2.0.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+        <state relative-caret-position="504">
+          <caret line="242" column="0" lean-forward="false" selection-start-line="242" selection-start-column="0" selection-end-line="246" selection-end-column="51" />
           <folding>
-            <element signature="e#25#63#0" expanded="false" />
             <element signature="e#787#916#0" expanded="false" />
             <element signature="e#950#1102#0" expanded="false" />
             <element signature="e#1134#1273#0" expanded="false" />
@@ -630,24 +656,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cnn_mnist_deep_3.0.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+        <state relative-caret-position="589">
+          <caret line="344" column="56" lean-forward="true" selection-start-line="344" selection-start-column="56" selection-end-line="344" selection-end-column="56" />
           <folding>
             <element signature="e#25#63#0" expanded="true" />
-            <element signature="e#1954#2120#0" expanded="false" />
-            <element signature="e#2149#2333#0" expanded="false" />
-            <element signature="e#2394#2764#0" expanded="false" />
-            <element signature="e#2788#2917#0" expanded="false" />
-            <element signature="e#2951#3103#0" expanded="false" />
-            <element signature="e#3135#3274#0" expanded="false" />
-            <element signature="e#3349#4090#0" expanded="false" />
-            <element signature="e#4144#4530#0" expanded="false" />
-            <element signature="e#4600#5257#0" expanded="false" />
-            <element signature="e#5299#5569#0" expanded="false" />
-            <element signature="e#5590#6827#0" expanded="false" />
-            <element signature="e#6877#7248#0" expanded="false" />
-            <element signature="e#7297#7537#0" expanded="false" />
-            <element signature="e#7594#8055#0" expanded="false" />
+            <element signature="e#962#1934#0" expanded="false" />
+            <element signature="e#1960#2126#0" expanded="false" />
+            <element signature="e#2155#2339#0" expanded="false" />
+            <element signature="e#2400#2770#0" expanded="false" />
+            <element signature="e#2794#2923#0" expanded="false" />
+            <element signature="e#2957#3109#0" expanded="false" />
+            <element signature="e#3141#3280#0" expanded="false" />
+            <element signature="e#3355#4096#0" expanded="false" />
+            <element signature="e#4150#4536#0" expanded="false" />
+            <element signature="e#4606#5263#0" expanded="false" />
+            <element signature="e#5305#5575#0" expanded="false" />
+            <element signature="e#5596#6833#0" expanded="false" />
+            <element signature="e#6883#7252#0" expanded="false" />
+            <element signature="e#7301#7541#0" expanded="false" />
+            <element signature="e#7598#8057#0" expanded="false" />
           </folding>
         </state>
       </provider>
