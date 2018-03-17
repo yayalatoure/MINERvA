@@ -7,13 +7,15 @@ import argparse
 import sys
 import tempfile
 import os
-
+import itertools
 from tensorflow.examples.tutorials.mnist import input_data
+from sklearn.metrics import confusion_matrix
 
 import numpy as np
 import tensorflow as tf
 from matplotlib import pyplot
-import matplotlib as mpl
+import matplotlib as plt
+
 
 FLAGS = None
 LOGDIR = 'C:/Users/lalo/Desktop/CCTVal/MINERvA/checkpoints3/'
@@ -24,11 +26,39 @@ def show_image(image):
     """
     fig = pyplot.figure()
     ax = fig.add_subplot(1,1,1)
-    imgplot = ax.imshow(image, cmap=mpl.cm.Greys)
+    imgplot = ax.imshow(image, cmap=plt.cm.Greys)
     imgplot.set_interpolation('nearest')
     ax.xaxis.set_ticks_position('top')
     ax.yaxis.set_ticks_position('left')
     pyplot.show()
+
+def plot_confusion_matrix(cm, classes,normalize=False,title='Confusion matrix',
+                          cmap=plt.cm.Greys):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+    print(cm)
+    pyplot.imshow(cm, interpolation='nearest', cmap=cmap)
+    pyplot.title(title)
+    pyplot.colorbar()
+    tick_marks = np.arange(len(classes))
+    pyplot.xticks(tick_marks, classes, rotation=45)
+    pyplot.yticks(tick_marks, classes)
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        pyplot.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+    pyplot.tight_layout()
+    pyplot.ylabel('True label')
+    pyplot.xlabel('Predicted label')
 
 def shuffle(*args):
     "Shuffles list of NumPy arrays in unison"
@@ -199,10 +229,13 @@ def accuracy_measure(y_, y_conv, name="accuracy"):
     with tf.name_scope(name):
         actual_pred = tf.argmax(y_conv, 1)
         correct_pred = tf.equal(actual_pred, tf.argmax(y_, 1))
-        correct_pred = tf.cast(correct_pred, tf.float32)
-        accuracy = tf.reduce_mean(correct_pred)
+        accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
         # tf.summary.scalar("accuracy", accuracy)
         return accuracy, correct_pred, actual_pred
+
+
+
+
 
 def main(_):
 
@@ -229,9 +262,9 @@ def main(_):
 
     """ Training Neural Network """
     sess.run(tf.global_variables_initializer())
-    for i in range(10000):
-        batch = mnist.train.next_batch(100)
-        if i % 100 == 0:
+    for i in range(100):
+        batch = mnist.train.next_batch(10)
+        if i % 10 == 0:
             print('iteración %g: ' % i)
             """Evaluando accuracy y xent"""
             train_accuracy = accuracy.eval(session=sess, feed_dict={
@@ -243,14 +276,59 @@ def main(_):
 
         train_step.run(session=sess, feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.8})
 
-    # for i in range(len())
-    test_accuracy = accuracy.eval(session=sess, feed_dict={
-                    x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})
-    print('\ntest accuracy: %g' % test_accuracy)
-    test_cross = correct_pred.eval(session=sess, feed_dict={
-                 x: mnist.test.images, y_: mnist.test.labels, keep_prob: 0.8})
-    print('\nshape of cross entropy vector: %g' % np.shape(test_cross))
-    print('accuracy form cross_entropy: %g' % (np.sum(test_cross) / np.shape(test_cross)))
+    '''evaluacion anterior'''
+    #for i in range(len())
+    #test_accuracy = accuracy.eval(session=sess, feed_dict={
+    #                x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})
+    #print('\ntest accuracy: %g' % test_accuracy)
+    #test_cross = correct_pred.eval(session=sess, feed_dict={
+    #             x: mnist.test.images, y_: mnist.test.labels, keep_prob: 0.8})
+    #print('\nshape of cross entropy vector: %g' % np.shape(test_cross))
+    #print('accuracy form cross_entropy: %g' % (np.sum(test_cross) / np.shape(test_cross)))
+
+    test_data = mnist.test.images
+    test_labels = mnist.test.labels
+    '''Evaluation - Get test accuracy'''
+    batch_correct_cts = []
+    batch_predict_cts = []
+    count = 0
+    for batch_data, batch_labels in batches(test_data, test_labels, 100):
+        count += 1
+        ct_correct, preds = sess.run([correct_pred, actual_pred], feed_dict={
+                            x: batch_data, y_: batch_labels, keep_prob: 0.8})
+        batch_correct_cts.append(ct_correct.sum())
+        batch_predict_cts.append(preds)
+
+   #last_batch_labels = np.argmax(test_labels[len(test_labels)-100:], axis=1)
+   #
+   #print(preds)
+   #print(last_batch_labels)
+   #print('\nTest accuracy: ')
+   #print(sum(batch_correct_cts) / len(test_labels))
+
+   #print('\nultimo batch accuracy: ')#
+   #print(sum(np.int32(np.equal(preds, last_batch_labels))) / 100)
+
+
+    print('\n Confusion Matrix')
+
+    predictions = np.concatenate(batch_predict_cts, axis=0)
+
+    # Compute confusion matrix
+    cnf_matrix = confusion_matrix(predictions, np.argmax(test_labels, axis=1))
+    np.set_printoptions(precision=2)
+    class_names = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    # Plot non-normalized confusion matrix
+    pyplot.figure()
+    plot_confusion_matrix(cnf_matrix, classes=class_names,
+                          title='Confusion matrix, without normalization')
+
+    # Plot normalized confusion matrix
+    pyplot.figure()
+    plot_confusion_matrix(cnf_matrix, classes=class_names, normalize=True,
+                          title='Normalized confusion matrix')
+
+    pyplot.show()
 
 
 if __name__ == '__main__':
